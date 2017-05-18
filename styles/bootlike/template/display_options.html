@@ -1,0 +1,17 @@
+<div class="btn-group dropup pull-{S_CONTENT_FLOW_BEGIN} action-bar-btn">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="{L_SORT_OPTIONS}"><i class="fa fa-sort-amount-asc fa-fw" aria-hidden="true"></i> <span class="caret"></span></button>
+	<ul class="dropdown-menu dropdown-contents page-jump-form panel-body display-options text-nowrap">
+	<!-- IF S_SORT_OPTIONS -->
+		<li><label class="control-label">{L_SORT_BY}{L_COLON}</label> <select name="sk" id="sk">{S_SORT_OPTIONS}</select></li>
+		<li><label class="control-label">{L_SORT_DIRECTION}{L_COLON}</label> <select name="sd" id="sd">{S_ORDER_SELECT}</select></li>
+	<!-- ELSE -->
+		<li><label class="control-label">{L_DISPLAY}{L_COLON}</label> {S_SELECT_SORT_DAYS}</li>
+		<!-- IF S_SELECT_SORT_KEY -->
+		<li><label class="control-label">{L_SORT_BY}{L_COLON}</label> {S_SELECT_SORT_KEY}</li>
+		<li><label class="control-label">{L_SORT_DIRECTION}{L_COLON}</label> {S_SELECT_SORT_DIR}</li>
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+		<li class="divider"><li>
+		<li><input type="submit" class="btn btn-default btn-sm btn-block" name="sort" value="{L_GO}" /></li>
+	</ul>
+</div>

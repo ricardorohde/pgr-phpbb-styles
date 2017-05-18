@@ -1,0 +1,55 @@
+@import url("bootstrap-rtl.min.css");
+
+.rtl .nav.navbar-nav {
+	margin-right: -15px;
+}
+
+.rtl .row-item {
+	background-position: 100% 50%;
+}
+
+.rtl .row-item .folder {
+	padding-left: 0;
+	padding-right: 46px;
+}
+
+.rtl .forum-image {
+	margin-right: 0;
+	margin-left: 10px;
+}
+
+.rtl dl.form-group dt, .rtl .display-options li {
+	text-align: left;
+}
+
+.rtl .notification-text img {
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+.rtl .post .postprofile {
+	float: left;
+	border-left: none;
+	border-right: 1px solid #eee;
+}
+
+.rtl blockquote > i {
+	margin-right: 0;
+	margin-left: 15px;
+}
+
+.rtl  cite .quote-date {
+	float: left;
+}
+
+.rtl .action-bar-btn {
+	margin-right: 0;
+	margin-left: 15px;
+}
+
+@media (max-width: 767px)
+{
+	.rtl dl.form-group dt {
+		text-align: right;
+	}
+}

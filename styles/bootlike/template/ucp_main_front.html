@@ -1,0 +1,78 @@
+<!-- INCLUDE ucp_header.html -->
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">{L_TITLE}</h4>
+	</div>
+	<div class="panel-body">
+
+	<p>{L_UCP_WELCOME}</p>
+
+<!-- IF .topicrow -->
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="row panel-title">
+			<span class="col-md-8 col-sm-7 col-xs-12">{L_IMPORTANT_NEWS}</span>
+			<span class="col-md-3 col-sm-4 hidden-xs small">{L_LAST_POST}</span>
+		</h4>
+	</div>
+	<!-- BEGIN topicrow -->
+	<div class="container-fluid row-item {topicrow.TOPIC_IMG_STYLE}<!-- IF topicrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+		<div class="row">
+			<div class="folder col-md-8 col-sm-7 col-xs-12">
+				<!-- IF topicrow.S_UNREAD_TOPIC --><a href="{topicrow.U_NEWEST_POST}" class="row-item-link"></a><!-- ENDIF -->
+
+				<!-- IF topicrow.S_UNREAD --><a href="{topicrow.U_NEWEST_POST}" title="{L_VIEW_NEWEST_POST}"><i class="fa fa-file icon_topic_newest" aria-hidden="true"></i></a><!-- ENDIF -->
+				<!-- IF topicrow.TOPIC_ICON_IMG --><img src="{T_ICONS_PATH}{topicrow.TOPIC_ICON_IMG}" alt="{L_IMAGE}" /> <!-- ENDIF --><a href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a><br />
+
+				<!-- IF .topicrow.pagination -->
+				<ul class="pagination">
+				<!-- BEGIN pagination -->
+					<!-- IF topicrow.pagination.S_IS_PREV -->
+					<!-- ELSEIF topicrow.pagination.S_IS_CURRENT --><li class="active"><span>{topicrow.pagination.PAGE_NUMBER}</span></li>
+					<!-- ELSEIF topicrow.pagination.S_IS_ELLIPSIS --><li class="ellipsis disabled"><span>{L_ELLIPSIS}</span></li>
+					<!-- ELSEIF topicrow.pagination.S_IS_NEXT -->
+					<!-- ELSE --><li><a href="{topicrow.pagination.PAGE_URL}">{topicrow.pagination.PAGE_NUMBER}</a></li>
+					<!-- ENDIF -->
+				<!-- END pagination -->
+				</ul>
+				<!-- ENDIF -->
+				<div class="hidden-xs">
+					<!-- IF topicrow.ATTACH_ICON_IMG --><span class="tip" title="{L_TOTAL_ATTACHMENTS}"><i class="fa fa-paperclip" aria-hidden="true"></i><span class="sr-only">{L_TOTAL_ATTACHMENTS}</span></span><!-- ENDIF -->
+					{L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
+				</div>
+				<div class="visible-xs">
+					<!-- IF topicrow.ATTACH_ICON_IMG --><span class="tip" title="{L_TOTAL_ATTACHMENTS}"><i class="fa fa-paperclip" aria-hidden="true"></i><span class="sr-only">{L_TOTAL_ATTACHMENTS}</span></span><!-- ENDIF -->
+					{L_LAST_POST} {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL} &laquo; <a href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}">{topicrow.LAST_POST_TIME}</a>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-5 hidden-xs">
+				{L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
+				<a href="{topicrow.U_LAST_POST}" title="{L_GOTO_LAST_POST}"><i class="fa fa-arrow-{S_CONTENT_FLOW_END}" aria-hidden="true"></i><span class="sr-only">{L_VIEW_LATEST_POST}</span></a> <br />{topicrow.LAST_POST_TIME}
+			</div>
+		</div>
+	</div>
+	<!-- END topicrow -->
+	</div>
+<!-- ENDIF -->
+
+	<h4>{L_YOUR_DETAILS}</h4>
+
+<!-- EVENT ucp_main_front_user_activity_before -->
+	<dl class="dl-horizontal">
+	<!-- EVENT ucp_main_front_user_activity_prepend -->
+		<dt>{L_JOINED}{L_COLON}</dt> <dd>{JOINED}</dd>
+		<dt>{L_LAST_ACTIVE}{L_COLON}</dt> <dd>{LAST_VISIT_YOU}</dd>
+		<dt>{L_TOTAL_POSTS}{L_COLON}</dt> <dd><!-- IF POSTS_PCT -->{POSTS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><!-- ENDIF --><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></dd>
+		<!-- IF ACTIVE_FORUM != '' --><dt>{L_ACTIVE_IN_FORUM}{L_COLON}</dt> <dd><strong><a href="{U_ACTIVE_FORUM}">{ACTIVE_FORUM}</a></strong><br />({ACTIVE_FORUM_POSTS} / {ACTIVE_FORUM_PCT})</dd><!-- ENDIF -->
+		<!-- IF ACTIVE_TOPIC != '' --><dt>{L_ACTIVE_IN_TOPIC}{L_COLON}</dt> <dd><strong><a href="{U_ACTIVE_TOPIC}">{ACTIVE_TOPIC}</a></strong><br />({ACTIVE_TOPIC_POSTS} / {ACTIVE_TOPIC_PCT})</dd><!-- ENDIF -->
+		<!-- IF WARNINGS --><dt>{L_YOUR_WARNINGS}{L_COLON}</dt> <dd class="error"><i class="fa fa-exclamation-triangle fa-fw icon-red" aria-hidden="true"></i>  [{WARNINGS}]</dd><!-- ENDIF -->
+	<!-- EVENT ucp_main_front_user_activity_append -->
+	</dl>
+<!-- EVENT ucp_main_front_user_activity_after -->
+
+	</div>
+</div>
+
+<!-- INCLUDE ucp_footer.html -->

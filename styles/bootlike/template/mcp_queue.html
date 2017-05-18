@@ -1,0 +1,130 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">{L_TITLE}</h4>
+	</div>
+	<div class="panel-body">
+
+	<p class="text-{S_CONTENT_FLOW_END}">
+		<label for="fo">{L_FORUM}{L_COLON}</label> <select name="f" id="fo">{S_FORUM_OPTIONS}</select>
+		<input type="submit" name="sort" value="{L_GO}" class="btn btn-default" />
+		{S_FORM_TOKEN}
+	</p>
+
+	<p>{L_EXPLAIN}</p>
+
+	<!-- IF .postrow -->
+		<div class="panel-group clearfix">
+		<!-- IF .pagination --> 
+			<!-- INCLUDE pagination.html -->
+		<!-- ENDIF -->
+			<div class="btn-group pull-{S_CONTENT_FLOW_BEGIN}">
+				<span class="btn btn-default disabled">{TOTAL}</span>
+				<span class="btn btn-default disabled">{PAGE_NUMBER}</span>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="row panel-title">
+				<span class="col-sm-6 col-xs-10"><!-- IF S_TOPICS -->{L_TOPIC}<!-- ELSE -->{L_POST}<!-- ENDIF --></span>
+				<span class="col-sm-4 hidden-xs small"><!-- IF not S_TOPICS -->{L_TOPIC} &amp; <!-- ENDIF -->{L_FORUM}</span>
+				<span class="col-xs-2 text-center small">{L_MARK}</span>
+			</h4>
+		</div>
+
+		<!-- BEGIN postrow -->
+
+		<!-- IF postrow.S_DELETED_TOPIC -->
+		<div class="clearfix row-item">{L_DELETED_TOPIC}</div>
+		<!-- ELSE -->
+
+		<div class="clearfix row-item<!-- IF postrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+			<div class="col-sm-6 col-xs-10">
+				<a href="{postrow.U_VIEW_DETAILS}" class="topictitle">{postrow.POST_SUBJECT}</a><br />
+				<!-- IF postrow.S_HAS_ATTACHMENTS --> <span class="tip" title="{L_TOTAL_ATTACHMENTS}"><i class="fa fa-paperclip" aria-hidden="true"></i></span> <!-- ENDIF -->{L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL} &raquo; {postrow.POST_TIME}
+
+				<span class="visible-xs">
+				<!-- IF S_TOPICS -->
+					{L_FORUM}{L_COLON} <a href="{postrow.U_VIEWFORUM}">{postrow.FORUM_NAME}</a>
+				<!-- ELSE -->
+					{L_TOPIC}{L_COLON} <a href="{postrow.U_TOPIC}">{postrow.TOPIC_TITLE}</a><br />
+					{L_FORUM}{L_COLON} <a href="{postrow.U_VIEWFORUM}">{postrow.FORUM_NAME}</a>
+				<!-- ENDIF -->
+				</span>
+			</div>
+
+			<div class="col-sm-4 hidden-xs">
+				<!-- IF S_TOPICS --><br /><!-- ELSE -->{L_TOPIC}{L_COLON} <a href="{postrow.U_TOPIC}">{postrow.TOPIC_TITLE}</a> <br /><!-- ENDIF -->
+				{L_FORUM}{L_COLON} <a href="{postrow.U_VIEWFORUM}">{postrow.FORUM_NAME}</a>
+			</div>
+			<div class="col-xs-2 text-center">
+			<!-- IF S_TOPICS -->
+				<input type="checkbox" name="topic_id_list[]" value="{postrow.TOPIC_ID}" />
+			<!-- ELSE -->
+				<input type="checkbox" name="post_id_list[]" value="{postrow.POST_ID}" />
+			<!-- ENDIF -->
+			</div>
+		</div>
+		<!-- ENDIF -->
+		<!-- END postrow -->
+		</div>
+
+	<!-- ELSE -->
+		<div class="alert alert-info">
+		<!-- IF S_RESTORE -->
+			<!-- IF S_TOPICS -->{L_NO_TOPICS_DELETED}<!-- ELSE -->{L_NO_POSTS_DELETED}<!-- ENDIF -->
+		<!-- ELSE -->
+			<!-- IF S_TOPICS -->{L_NO_TOPICS_QUEUE}<!-- ELSE -->{L_NO_POSTS_QUEUE}<!-- ENDIF -->
+		<!-- ENDIF -->
+		</div>
+	<!-- ENDIF -->
+
+<!-- IF .postrow -->
+	<div class="panel-group clearfix">
+		<!-- INCLUDE display_options.html -->
+		<!-- IF TOPIC_ID -->
+			<label class="btn btn-default btn-sm pull-{S_CONTENT_FLOW_BEGIN} action-bar-btn"><input type="checkbox" name="t" value="{TOPIC_ID}" checked="checked" />&nbsp; <strong>{L_ONLY_TOPIC}</strong></label>
+		<!-- ENDIF -->
+
+		<fieldset class="pull-{S_CONTENT_FLOW_END}">
+		<div class="btn-group">
+			<!-- IF S_RESTORE -->
+			<input class="btn btn-danger" type="submit" name="action[delete]" value="{L_DELETE}" />
+			<input class="btn btn-success" type="submit" name="action[restore]" value="{L_RESTORE}" />
+			<!-- ELSE -->
+			<input class="btn btn-danger" type="submit" name="action[disapprove]" value="{L_DISAPPROVE}" />
+			<input class="btn btn-success" type="submit" name="action[approve]" value="{L_APPROVE}" />
+			<!-- ENDIF -->
+
+			<!-- IF S_TOPICS -->
+			<a href="#" onclick="marklist('mcp', 'topic_id_list', false); return false;" class="btn btn-default">{L_UNMARK_ALL}</a>
+			<a href="#" onclick="marklist('mcp', 'topic_id_list', true); return false;" class="btn btn-default">{L_MARK_ALL}</a>
+			<!-- ELSE -->
+			<a href="#" onclick="marklist('mcp', 'post_id_list', false); return false;" class="btn btn-default">{L_UNMARK_ALL}</a>
+			<a href="#" onclick="marklist('mcp', 'post_id_list', true); return false;" class="btn btn-default">{L_MARK_ALL}</a>
+			<!-- ENDIF -->
+		</div>
+		</fieldset>
+	</div>
+
+	<div class="clearfix">
+	<!-- IF .pagination --> 
+		<!-- INCLUDE pagination.html -->
+	<!-- ENDIF -->
+		<div class="btn-group pull-{S_CONTENT_FLOW_BEGIN}">
+			<span class="btn btn-default disabled">{TOTAL}</span>
+			<span class="btn btn-default disabled">{PAGE_NUMBER}</span>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+	</div>
+</div>
+
+</form>
+
+<!-- INCLUDE mcp_footer.html -->

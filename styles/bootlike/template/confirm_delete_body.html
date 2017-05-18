@@ -1,0 +1,80 @@
+<!-- IF S_AJAX_REQUEST -->
+	<form action="{S_CONFIRM_ACTION}" method="post">
+		<h4 class="modal-title">{MESSAGE_TEXT}</h4>
+		<hr class="row" />
+
+		<fieldset class="form-horizontal">
+	<!-- IF not S_SHADOW_TOPICS -->
+		<!-- IF not S_SOFTDELETED and S_ALLOWED_DELETE and S_ALLOWED_SOFTDELETE -->
+		<dl class="form-group">
+			<dt class="col-md-4 col-sm-5 col-xs-12"><label for="delete_permanent">{L_DELETE_PERMANENTLY}{L_COLON}</label></dt>
+			<dd class="col-md-8 col-sm-7 col-xs-12">
+				<label for="delete_permanent">
+					<input id="delete_permanent" name="delete_permanent" type="checkbox" value="1" {S_CHECKED_PERMANENT} /><!-- IF S_TOPIC_MODE --> {DELETE_TOPIC_PERMANENTLY}<!-- ELSE --> {DELETE_POST_PERMANENTLY}<!-- ENDIF -->
+				</label>
+			</dd>
+		</dl>
+		<!-- ENDIF -->
+		<dl class="form-group">
+			<dt class="col-md-4 col-sm-5 col-xs-12"><label class="control-label" for="delete_reason">{L_DELETE_REASON}{L_COLON}</label></dt>
+			<dd class="col-md-8 col-sm-7 col-xs-12">
+				<input id="delete_reason" name="delete_reason" type="text" value="" class="form-control" maxlength="120" size="45" />
+				<span class="help-block">{L_DELETE_REASON_EXPLAIN}</span>
+			</dd>
+		</dl>
+	<!-- ENDIF -->
+		</fieldset>
+		<p class="text-center">
+			<input type="button" name="confirm" value="{L_YES}" class="btn btn-danger" />&nbsp;
+			<input type="button" name="cancel" value="{L_NO}" class="btn btn-primary" />
+		</p>
+	</form>
+<!-- ELSE -->
+
+<!-- INCLUDE overall_header.html -->
+
+<form id="confirm" action="{S_CONFIRM_ACTION}" method="post">
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">{MESSAGE_TITLE}</h4>
+			</div>
+			<div class="panel-body">
+			<p>{MESSAGE_TEXT}</p>
+
+			<!-- IF not S_SHADOW_TOPICS -->
+			<fieldset class="form-horizontal">
+				<!-- IF not S_SOFTDELETED and S_ALLOWED_DELETE and S_ALLOWED_SOFTDELETE -->
+				<dl class="form-group">
+					<dt class="col-md-3 col-sm-4 col-xs-12"><label class="control-label" for="delete_permanent">{L_DELETE_PERMANENTLY}{L_COLON}</label></dt>
+					<dd class="col-md-9 col-sm-8 col-xs-12">
+						<label class="control-label" for="delete_permanent">
+							<input id="delete_permanent" name="delete_permanent" type="checkbox" value="1" {S_CHECKED_PERMANENT} /><!-- IF S_TOPIC_MODE --> {DELETE_TOPIC_PERMANENTLY}<!-- ELSE --> {DELETE_POST_PERMANENTLY}<!-- ENDIF -->
+						</label>
+					</dd>
+				</dl>
+				<!-- ENDIF -->
+
+				<dl class="form-group">
+					<dt class="col-md-3 col-sm-4 col-xs-12"><label class="control-label" for="delete_reason">{L_DELETE_REASON}{L_COLON}</label></dt>
+					<dd class="col-md-9 col-sm-8 col-xs-12"><input type="text" name="delete_reason" id="delete_reason" value="" class="form-control" maxlength="120" size="45" /><span class="help-block">{L_DELETE_REASON_EXPLAIN}</span></dd>
+				</dl>
+			</fieldset>
+			<!-- ENDIF -->
+			</div>
+
+			<fieldset class="panel-footer text-center">
+				{S_HIDDEN_FIELDS}
+				<input type="submit" name="confirm" value="{L_YES}" class="btn btn-danger" />&nbsp; 
+				<input type="submit" name="cancel" value="{L_NO}" class="btn btn-primary" />
+			</fieldset>
+		</div>
+	</div>
+</div>
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

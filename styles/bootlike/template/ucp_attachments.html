@@ -1,0 +1,87 @@
+<!-- INCLUDE ucp_header.html -->
+
+<form id="ucp" method="post" action="{S_UCP_ACTION}"{S_FORM_ENCTYPE}>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">{L_TITLE}</h4>
+	</div>
+	<div class="panel-body">
+	
+	<p>{L_ATTACHMENTS_EXPLAIN}</p>
+
+	<!-- IF .attachrow -->
+	<div class="panel-group clearfix">
+		<!-- IF .pagination --> 
+			<!-- INCLUDE pagination.html -->
+		<!-- ENDIF -->
+		<div class="btn-group pull-{S_CONTENT_FLOW_BEGIN}">
+			<span class="btn btn-default disabled">{TOTAL_ATTACHMENTS} {L_TITLE}</span>
+			<span class="btn btn-default disabled">{PAGE_NUMBER}</span>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="row panel-title">
+			<span class="col-sm-5 col-xs-8">{L_FILENAME}</span>
+			<span class="col-sm-2 col-xs-2 text-center small">{L_DOWNLOADS}</span>
+			<span class="col-sm-3 hidden-xs small">{L_POST_TIME}</span>
+			<span class="col-xs-2 text-center small">{L_MARK}</span>
+		</h4>
+	</div>
+
+		<!-- BEGIN attachrow -->
+		<div class="clearfix row-item<!-- IF attachrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+			<div class="col-sm-5 col-xs-8">
+				<a href="{attachrow.U_VIEW_ATTACHMENT}" class="topictitle attachment-filename ellipsis-text" title="{attachrow.FILENAME}">{attachrow.FILENAME}</a> ({attachrow.SIZE})<br />
+				<!-- IF attachrow.S_IN_MESSAGE -->{L_PM}{L_COLON} <!-- ELSE -->{L_TOPIC}{L_COLON} <!-- ENDIF --><a href="{attachrow.U_VIEW_TOPIC}">{attachrow.TOPIC_TITLE}</a>
+
+				<div class="visible-xs">{L_POST_TIME}{L_COLON} {attachrow.POST_TIME}</div>
+			</div>
+
+			<div class="col-xs-2 text-center">{attachrow.DOWNLOAD_COUNT}</div>
+			<div class="col-sm-3 hidden-xs">{attachrow.POST_TIME}</div>
+			<div class="col-xs-2 text-center"><input type="checkbox" name="attachment[{attachrow.ATTACH_ID}]" value="1" /></div>
+		</div>
+		<!-- END attachrow -->
+	</div>
+
+	<!-- ELSE -->
+		<div class="alert alert-info">
+			{L_UCP_NO_ATTACHMENTS}
+		</div>
+	<!-- ENDIF -->
+	
+<!-- IF S_ATTACHMENT_ROWS -->
+	<div class="panel-group clearfix">
+		<!-- INCLUDE display_options.html -->
+		{S_FORM_TOKEN}
+
+		<fieldset class="pull-{S_CONTENT_FLOW_END}">
+			<div class="btn-group">
+				<input type="submit" name="delete" value="{L_DELETE_MARKED}" class="btn btn-danger" />
+				<a href="#" onclick="marklist('ucp', 'attachment', false); return false;" class="btn btn-default">{L_UNMARK_ALL}</a>
+				<a href="#" onclick="marklist('ucp', 'attachment', true); return false;" class="btn btn-default">{L_MARK_ALL}</a>
+			</div>
+			{S_FORM_TOKEN}
+		</fieldset>
+	</div>
+
+	<div class="panel-group clearfix">
+		<!-- IF .pagination --> 
+			<!-- INCLUDE pagination.html -->
+		<!-- ENDIF -->
+		<div class="btn-group pull-{S_CONTENT_FLOW_BEGIN}">
+			<span class="btn btn-default disabled">{TOTAL_ATTACHMENTS} {L_TITLE}</span>
+			<span class="btn btn-default disabled">{PAGE_NUMBER}</span>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+	</div>
+</div>
+
+</form>
+
+<!-- INCLUDE ucp_footer.html -->

@@ -1,0 +1,42 @@
+	<div id="login-popup" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a href="#" class="alert_close pull-{S_CONTENT_FLOW_END} text-danger" title="{L_CLOSE_WINDOW}" data-dismiss="modal"><i class="fa fa-close"></i> </a>
+					<h4 class="modal-title">{L_LOGIN}</h4>
+				</div>
+
+				<div class="modal-body">
+					<form method="post" action="{S_LOGIN_ACTION}">
+					<div class="row">
+						<div class="panel-body col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-2">
+							<p class="form-group">
+								<label class="sr-only" for="username">{L_USERNAME}{L_COLON}</label>
+								<span class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa-fw"></i> </span>
+									<input id="username" name="username" tabindex="1" size="10" class="form-control" placeholder="{L_USERNAME}" title="{L_USERNAME}" />
+								</span>
+							</p>
+							<p class="form-group">
+								<label class="sr-only" for="password">{L_PASSWORD}{L_COLON}</label>
+								<span class="input-group">
+									<span class="input-group-addon"><i class="fa fa-key fa-fw"></i> </span>
+									<input type="password" id="password" name="password" tabindex="2" size="10" placeholder="{L_PASSWORD}" title="{L_PASSWORD}" class="form-control" />
+								</span>
+							</p>
+							<p>
+							<!-- IF S_AUTOLOGIN_ENABLED -->
+								<label for="autologin"><input type="checkbox" id="autologin" name="autologin" tabindex="3" /> {L_LOG_ME_IN}</label><br />
+							<!-- ENDIF -->
+								<label for="viewonline"><input type="checkbox" id="viewonline" name="viewonline" tabindex="4" /> {L_HIDE_ME}</label>
+							</p>
+							<input type="submit" tabindex="5" name="login" value="{L_LOGIN}" class="btn btn-success btn-block" />
+							{S_LOGIN_REDIRECT}
+						</div>
+					</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,116 @@
+<!-- INCLUDE mcp_header.html -->
+
+<form id="mcp" method="post" action="{S_MCP_ACTION}">
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">{L_TITLE}</h4>
+	</div>
+	<div class="panel-body">
+
+	<!-- IF not S_PM -->
+	<p class="text-{S_CONTENT_FLOW_END}">
+		<label for="fo">{L_FORUM}{L_COLON}</label> <select name="f" id="fo">{S_FORUM_OPTIONS}</select>
+		<input type="submit" name="sort" value="{L_GO}" class="btn btn-default" />
+		{S_FORM_TOKEN}
+	</p>
+	<!-- ENDIF -->
+
+
+	<p>{L_EXPLAIN}</p>
+
+	<!-- IF .postrow -->
+		<div class="panel-group clearfix">
+		<!-- IF .pagination --> 
+			<!-- INCLUDE pagination.html -->
+		<!-- ENDIF -->
+			<div class="btn-group pull-{S_CONTENT_FLOW_BEGIN}">
+				<span class="btn btn-default disabled">{TOTAL_REPORTS}</span>
+				<span class="btn btn-default disabled">{PAGE_NUMBER}</span>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="row panel-title">
+				<span class="col-sm-6 col-xs-10">{L_VIEW_DETAILS}</span>
+				<span class="col-sm-4 hidden-xs small">{L_REPORTER}<!-- IF not S_PM --> &amp; {L_FORUM}<!-- ENDIF --></span>
+				<span class="col-xs-2 text-center small">{L_MARK}</span>
+			</h4>
+		</div>
+
+		<!-- BEGIN postrow -->
+			<div class="clearfix row-item<!-- IF postrow.S_ROW_COUNT is odd --> bg1<!-- ELSE --> bg2<!-- ENDIF -->">
+				<div class="col-sm-6 col-xs-10">
+					<!-- IF S_PM -->
+					<a href="{postrow.U_VIEW_DETAILS}" class="topictitle">{postrow.PM_SUBJECT}</a><br />
+					<!-- IF postrow.ATTACH_ICON_IMG --><span class="tip" title="{L_TOTAL_ATTACHMENTS}"><i class="fa fa-paperclip" aria-hidden="true"></i><span class="sr-only">{L_TOTAL_ATTACHMENTS}</span></span> <!-- ENDIF -->{L_MESSAGE_BY_AUTHOR} {postrow.PM_AUTHOR_FULL} &raquo; {postrow.PM_TIME}<br />
+					{L_MESSAGE_TO} {postrow.RECIPIENTS}
+
+					<span class="visible-xs">
+						{L_REPORTER}{L_COLON} {postrow.REPORTER_FULL} &laquo; {postrow.REPORT_TIME}
+					</span>
+				</div>
+					<div class="col-sm-4 hidden-xs">
+						<span>{postrow.REPORTER_FULL} &laquo; {postrow.REPORT_TIME}</span>
+					</div>
+					<!-- ELSE -->
+					<a href="{postrow.U_VIEW_DETAILS}" class="topictitle">{postrow.POST_SUBJECT}</a><br />
+					<!-- IF postrow.ATTACH_ICON_IMG --><span class="tip" title="{L_TOTAL_ATTACHMENTS}"><i class="fa fa-paperclip" aria-hidden="true"></i><span class="sr-only">{L_TOTAL_ATTACHMENTS}</span></span> <!-- ENDIF -->{L_POSTED} {L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL} &raquo; {postrow.POST_TIME}
+
+					<span class="visible-xs">
+						{L_REPORTER}{L_COLON} {postrow.REPORTER_FULL} &laquo; {postrow.REPORT_TIME}<br />
+						<!-- IF postrow.U_VIEWFORUM -->{L_FORUM}{L_COLON} <a href="{postrow.U_VIEWFORUM}">{postrow.FORUM_NAME}</a><!-- ELSE -->{postrow.FORUM_NAME}<!-- ENDIF -->
+					</span>
+				</div>
+
+					<div class="col-sm-4 hidden-xs">
+						<span>{postrow.REPORTER_FULL} &laquo; {postrow.REPORT_TIME}<br />
+						<!-- IF postrow.U_VIEWFORUM -->{L_FORUM}{L_COLON} <a href="{postrow.U_VIEWFORUM}">{postrow.FORUM_NAME}</a><!-- ELSE -->{postrow.FORUM_NAME}<!-- ENDIF --></span>
+					</div>
+					<!-- ENDIF -->
+					<div class="col-xs-2 text-center"><input type="checkbox" name="report_id_list[]" value="{postrow.REPORT_ID}" /></div>
+			</div>		
+		<!-- END postrow -->
+		</div>
+
+	<!-- ELSE -->
+		<div class="alert alert-info">
+			{L_NO_REPORTS}
+		</div>
+	<!-- ENDIF -->
+
+<!-- IF .postrow -->
+	<div class="panel-group clearfix">
+		<!-- INCLUDE display_options.html -->
+		<!-- IF TOPIC_ID -->
+			<label class="btn btn-default btn-sm pull-{S_CONTENT_FLOW_BEGIN} action-bar-btn"><input type="checkbox" name="t" value="{TOPIC_ID}" checked="checked" onClick="document.getElementById('mcp').submit()" /> <strong>{L_ONLY_TOPIC}</strong></label>
+		<!-- ENDIF -->
+
+		<fieldset class="pull-{S_CONTENT_FLOW_END}">
+			<div class="btn-group">
+				<input class="btn btn-danger" type="submit" value="{L_DELETE_REPORTS}" name="action[delete]" />
+				<!-- IF not S_CLOSED --><input class="btn btn-success" type="submit" name="action[close]" value="{L_CLOSE_REPORTS}" /><!-- ENDIF -->
+				<a href="#" onclick="marklist('mcp', 'report_id_list', false); return false;" class="btn btn-default">{L_UNMARK_ALL}</a>
+				<a href="#" onclick="marklist('mcp', 'report_id_list', true); return false;" class="btn btn-default">{L_MARK_ALL}</a>
+			</div>
+		</fieldset>
+	</div>
+
+	<div class="panel-group clearfix">
+	<!-- IF .pagination --> 
+		<!-- INCLUDE pagination.html -->
+	<!-- ENDIF -->
+		<div class="btn-group pull-{S_CONTENT_FLOW_BEGIN}">
+			<span class="btn btn-default disabled">{TOTAL_REPORTS}</span>
+			<span class="btn btn-default disabled">{PAGE_NUMBER}</span>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+	</div>
+</div>
+
+</form>
+
+<!-- INCLUDE mcp_footer.html -->
