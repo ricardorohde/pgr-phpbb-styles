@@ -1,5 +1,6 @@
 /*
 !/.gitignore
+!/less
 !/styles
 /styles/*
 !/styles/bootlike
