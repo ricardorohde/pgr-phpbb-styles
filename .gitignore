@@ -3,3 +3,6 @@
 !/styles
 /styles/*
 !/styles/bootlike
+!/styles/pgr
+!/styles/pgr-dark
+!/styles/pgr-light
