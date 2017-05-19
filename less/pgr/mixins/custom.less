@@ -1,0 +1,77 @@
+.fill-100() {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fill-snap() {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.vertical-center() {
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.undo-ellipsis() {
+  white-space: normal;
+  overflow: auto;
+  text-overflow: clip;
+}
+
+.bg-cover() {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.reset-list() {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.letter-spacing(@photoshop-value) {
+  letter-spacing: @photoshop-value / 1000em;
+}
+
+.responsive-property(@property; @min; @max; @min-width:320px) {
+  @percentage: 100*@min/@min-width;
+  @breakpoint: floor((100*@max/@percentage));
+
+    @{property}: @min;
+  @media (min-width: @min-width) {
+      @{property}: unit(@percentage, vw);
+  }
+  @media (min-width: @breakpoint) {
+      @{property}: @max;
+  }
+}
+
+.box-triangle(@size) {
+  @edge: sqrt(pow(@size,2)*0.5);
+  margin: -(@edge/2) 0 0 -(@edge/2);
+  width: @edge;
+  height: @edge;
+  .rotate(45deg);
+}
