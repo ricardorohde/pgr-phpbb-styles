@@ -61,34 +61,60 @@
 
 <!-- EVENT overall_header_body_before -->
 
-<div class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
-		<div class="navbar-brand hidden-xs">{SITENAME}<span class="small"> - {SITE_DESCRIPTION}</span></div>
-		<h3 class="text-center visible-xs"><a href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->">{SITENAME}</a></h3>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+                <span class="fa fa-bars" aria-hidden="true"></span>
+            </button>
+            <a class="navbar-brand" href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->">{SITENAME}</a>
+        </div>
 
-	<!-- EVENT overall_header_searchbox_before -->
-	<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
-		<form action="{U_SEARCH}" method="get" id="search">
-			<div id="search-box" class="navbar-form pull-{S_CONTENT_FLOW_END} hidden-xs">
-			<div class="input-group">
-				<input name="keywords" id="keywords" type="search" maxlength="128" title="{L_SEARCH_KEYWORDS}" class="form-control" size="20" value="{SEARCH_WORDS}" placeholder="{L_SEARCH_MINI}" />
-				<div class="input-group-btn">
-					<button class="btn btn-default" type="submit" title="{L_SEARCH}">
-						<i class="fa fa-search fa-fw" aria-hidden="true"></i><span class="sr-only">{L_SEARCH}</span>
-					</button>
-					<a href="{U_SEARCH}" class="btn btn-default" title="{L_SEARCH_ADV}">
-						<i class="fa fa-cog fa-fw" aria-hidden="true"></i><span class="sr-only">{L_SEARCH_ADV}</span>
-					</a>
-				</div>
-			</div>
-			{S_SEARCH_HIDDEN_FIELDS}
-			</div>
-		</form>
-	<!-- ENDIF -->
-	<!-- EVENT overall_header_searchbox_after -->
+        <div class="collapse navbar-collapse" id="main-menu">
+            <ul class="nav navbar-nav navbar-{S_CONTENT_FLOW_END}">
+                <li><a href="{U_SEARCH}" title="{L_SEARCH}"><span class="fa fa-fw fa-search" aria-hidden="true"></span> {L_SEARCH}</a></li>
+                <!-- IF S_REGISTERED_USER -->
+                <li id="username_logged_in">
+                    <!-- EVENT navbar_header_user_profile_prepend -->
+                    <!-- EVENT navbar_header_username_prepend -->
+                    <a href="{U_PROFILE}" class="header-avatar dropdown-toggle" data-toggle="dropdown"><span class="fa fa-fw fa-user" aria-hidden="true"></span> <!-- IF CURRENT_USER_AVATAR -->{CURRENT_USER_AVATAR} <!-- ENDIF -->{CURRENT_USERNAME_SIMPLE} <span class="caret" aria-hidden="true"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-{S_CONTENT_FLOW_END}" role="menu">
+                        <!-- IF U_RESTORE_PERMISSIONS -->
+                        <li><a href="{U_RESTORE_PERMISSIONS}"><span class="fa fa-refresh fa-fw" aria-hidden="true"></span> {L_RESTORE_PERMISSIONS}</a></li>
+                        <!-- ENDIF -->
 
+                        <!-- EVENT navbar_header_profile_list_before -->
+
+                        <li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}" role="menuitem"><span class="fa fa-user fa-fw" aria-hidden="true"></span> {L_READ_PROFILE}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{U_PROFILE}" title="{L_PROFILE}" role="menuitem"><span class="fa fa-sliders fa-fw" aria-hidden="true"></span> {L_PROFILE}</a></li>
+
+                        <!-- EVENT navbar_header_profile_list_after -->
+
+                        <!-- IF S_NOTIFICATIONS_DISPLAY -->
+                        <li><a href="{U_VIEW_ALL_NOTIFICATIONS}"><span class="fa fa-bell fa-fw" aria-hidden="true"></span> {L_NOTIFICATIONS} <strong class="label label-info<!-- IF not NOTIFICATIONS_COUNT --> hide<!-- ENDIF -->">{NOTIFICATIONS_COUNT}</strong></a></li>
+                        <!-- ENDIF -->
+
+                        <!-- IF S_DISPLAY_PM -->
+                        <li><a href="{U_PRIVATEMSGS}"><span class="fa fa-envelope fa-fw" aria-hidden="true"></span> {L_PRIVATE_MESSAGES} <strong class="label label-info<!-- IF not PRIVATE_MESSAGE_COUNT --> hide<!-- ENDIF -->">{PRIVATE_MESSAGE_COUNT}</strong></a></li>
+                        <!-- ENDIF -->
+
+                        <li class="divider"></li>
+                        <li><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x" role="menuitem"><span class="fa fa-power-off fa-fw" aria-hidden="true"></span> {L_LOGIN_LOGOUT}</a></li>
+                    </ul>
+                    <!-- EVENT navbar_header_username_append -->
+                </li>
+                <!-- ELSE -->
+                    <!-- IF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+                    <li><a href="{U_REGISTER}"><span class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></span> {L_REGISTER}</a></li>
+                    <!-- ENDIF -->
+                    <li><a href="#" data-toggle="modal" data-target="#login-popup" title="{L_LOGIN_LOGOUT}" accesskey="x"><span class="fa fa-power-off fa-fw" aria-hidden="true"></span> {L_LOGIN_LOGOUT}</a></li>
+                    <!-- EVENT navbar_header_logged_out_content -->
+                <!-- ENDIF -->
+            </ul>
+        </div>
 	</div>
-</div>
+</nav>
 
 <!-- EVENT overall_header_headerbar_before -->
 <div class="page-header text-center hidden-xs" role="banner"></div>
